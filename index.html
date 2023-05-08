@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+
+  <title>Subsistema de Información Espacial PUIC</title>
+  <link rel="icon" type="image/png" href="icono/logoPUIC.png">
+
+  <!--Link a estilos Geoportal-->
+  <link rel="stylesheet" href="estilos.css">
+
+  <!--Link a estilos y Script de OpenLayers-->
+  <link rel="stylesheet" href="./Librerias/v6.15.1-dist/ol.css">
+  <script src="./main.js"></script>
+  <script src="./Librerias/v6.15.1-dist/ol.js"></script>
+
+  <!--Link a estilos y Script de Bootstrap-->
+  <link rel="stylesheet" href="estilos_bootstrap.css">
+  <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+  <!--Link a fuentes-->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+</head>
+<!--Termina cabecera-->
+
+
+
+<!--Cinta de cabecera-->
+<header class="CabeceraPUIC">
+
+  <!--Logos-->
+  <div style="order: 1; flex-grow: 0; display:flex; flex-wrap: wrap">
+    <div style="padding-top: 8px; padding-bottom: 8px;">
+      <a class="LogoUNAM" href="https://www.unam.mx/" target="_blank">
+        <img src="imagenes/logo_UNAM.png" height="70" class="logoUNAM" title="Universidad Nacional Autónoma de México">
+      </a>
+    </div>
+    <div style="padding-top: 8px; padding-bottom: 8px;">
+      <a class="LogoPUIC" href="https://www.nacionmulticultural.unam.mx/" target="_blank">
+        <img src="imagenes/Logo_PUIC_sin-fondo.png" height="70" class="logoPUIC"
+          title="Pograma Universitario para la diversidad Cultural e Interculturalidad">
+      </a>
+    </div>
+  </div>
+  <!--Terminan Logos-->
+  <div id="cabecera1">
+    <p id="t1">Subsistema de Información Geográfica del Estado de Desarrollo Social de los Pueblos Indígenas</p1>
+    <p id="t2">Diversidad cultural e intercultural</p>
+  </div>
+
+  <!--Botones de información-->
+  <div style="order: 3; flex-grow: 0; display:flex; flex-wrap: wrap; margin-top: 23px; margin-right: 20px">
+    <!--Botón casa-->
+    <div style="margin: 1px;">
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+        title="¿Cómo funciona el Geoportal?">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door-fill"
+          viewBox="0 0 16 16">
+          <path
+            d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z" />
+        </svg>
+      </button>
+    </div>
+    <!--Termina botón casa-->
+    <!--Botón libro-->
+    <div style="margin: 1px;">
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModas"
+        title="Regiones del EDESPI">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-book"
+          viewBox="0 0 16 16">
+          <path
+            d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z" />
+        </svg>
+      </button>
+    </div>
+    <!--Termina botón libro-->
+    <!--Botón Info-->
+    <div style="margin: 1px;">
+      <a class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button"
+        title="Información acerca del portal">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-lg"
+          viewBox="0 0 16 16">
+          <path
+            d="m9.708 6.075-3.024.379-.108.502.595.108c.387.093.464.232.38.619l-.975 4.577c-.255 1.183.14 1.74 1.067 1.74.72 0 1.554-.332 1.933-.789l.116-.549c-.263.232-.65.325-.905.325-.363 0-.494-.255-.402-.704l1.323-6.208Zm.091-2.755a1.32 1.32 0 1 1-2.64 0 1.32 1.32 0 0 1 2.64 0Z" />
+        </svg>
+      </a>
+    </div>
+    <!--Termina botón Info-->
+  </div>
+  <!--Terminan botones de información-->
+
+</header>
+<!--Termina cinta de cabecera-->
+
+<!--Inician MODALES de Navegación-->
+<!-- Modal 1 -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Conoce el Geoportal del EDESPI</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        El geoportal del <b>Estado de Desarrollo Social de los Pueblos Indígenas</b> (EDESPI) tiene por objetivo
+        visualizar las condiciones del desarrollo económico y social que prevalecen en las diferentes regiones donde
+        habita la población indígena de México.
+        <br><br> <b>¿Cómo funciona?</b>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Termina modal 1 -->
+
+<!-- Modal 2 -->
+<div class="modal fade" id="exampleModas" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Regiones del EDESPI</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <b>Chiapas</b><br><br>
+        Estado del Desarrollo Económico y Social de los Pueblos Indígenas es el proyecto del PUIC que busca analizar las
+        condiciones del desarrollo económico y social que prevalecen en las diferentes regiones donde habita la
+        población indígena de México, sea en el propio territorio nacional o en otros países a los que ha emigrado.
+        <br><br>
+        <div1 style="display: flex; justify-content: center;">
+          <img src="imagenes/CHIAPAS.PNG" style="border-radius: 50%; text-align: center;">
+        </div1>
+      </div>
+      <!--Botón para cambio de página-->
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Siguiente</button>
+      </div>
+      <!--Termina botón para cambio de página-->
+    </div>
+  </div>
+</div>
+
+<!--2da Pagína de Modal 2-->
+<div class="modal fade" id="exampleModalToggle2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Regiones del EDESPI</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <b>Michoacán</b><br><br>
+        Familia, Sociedad y Cultura tiene como propósito dar a conocer las diferentes temáticas en torno a la familia
+        contemporánea desde varias disciplinas sociales e instituciones académicas nacionales e internacionales y
+        enmarcadas en un contexto global con cambios económicos, sociales y culturales.
+        <br><br>
+        <div1 style="display: flex; justify-content: center;">
+          <img src="imagenes/MICHOACAN.PNG" style="border-radius: 50%; text-align: center;">
+        </div1>
+      </div>
+      <!--Botón para cambio de página-->
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-bs-target="#exampleModalToggle3" data-bs-toggle="modal">Siguiente</button>
+      </div>
+      <!--Termina botón para cambio de página-->
+    </div>
+  </div>
+</div>
+<!--Termina 2a Página Modal 2-->
+
+<!--3a Pagína de Modal 2-->
+<div class="modal fade" id="exampleModalToggle3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Regiones del EDESPI</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <b>Guerrero</b><br><br>
+        Familia, Sociedad y Cultura tiene como propósito dar a conocer las diferentes temáticas en torno a la familia
+        contemporánea desde varias disciplinas sociales e instituciones académicas nacionales e internacionales y
+        enmarcadas en un contexto global con cambios económicos, sociales y culturales.
+        <br><br>
+        <div1 style="display: flex; justify-content: center;">
+          <img src="imagenes/GUERRERO.jpg" style="border-radius: 50%; text-align: center;">
+        </div1>
+      </div>
+      <!--Botón para cambio de página-->
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-bs-target="#exampleModalToggle4" data-bs-toggle="modal">Siguiente</button>
+      </div>
+      <!--Termina botón para cambio de página-->
+    </div>
+  </div>
+</div>
+<!--Termina 3a Página Modal 2-->
+
+<!--4a Pagína de Modal 2-->
+<div class="modal fade" id="exampleModalToggle4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Regiones del EDESPI</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <b>Región Totonaca</b><br><br>
+        Familia, Sociedad y Cultura tiene como propósito dar a conocer las diferentes temáticas en torno a la familia
+        contemporánea desde varias disciplinas sociales e instituciones académicas nacionales e internacionales y
+        enmarcadas en un contexto global con cambios económicos, sociales y culturales.
+        <br><br>
+        <div1 style="display: flex; justify-content: center;">
+          <img src="imagenes/TOTONACA.PNG" style="border-radius: 50%; text-align: center;">
+        </div1><br>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Termina 4a Página Modal 2-->
+
+<!-- Termina modal 2 -->
+
+<!--Modal 3-->
+<div class="modal fade" id="exampleModalToggle" aria-labelledby="exampleModalToggleLabel" tabindex="-1"
+  aria-hidden="true" style="display: none;">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalToggleLabel">Conoce sobre la construcción del Geoportal</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Este Geoportal forma parte de los Programas de investigación y Proyectos académicos del Programa Universitario
+        de Estudios de la Diversidad Cultural y la Interculturalidad (PUIC) de la Universidad Nacional Autónoma de
+        México (UNAM).
+        <br><br>
+        La información espacial desplegada en él se encuentra disponible para descarga, esta se mantiene actualizada en
+        tiempo real y alojada en una base de datos espacial gestionada con PostgreSQL mediante la extensión PostGIS.
+        <br><br>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-bs-target="#exampleModalToggle5" data-bs-toggle="modal">Conoce más</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="exampleModalToggle5" aria-labelledby="exampleModalToggleLabel2" tabindex="-1"
+  aria-hidden="true" style="display: none;">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalToggleLabel2">Más sobre su construcción</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        La base de datos espacial utilizada en el sitio es consumida por el servidor de mapas GeoServer y distribuida
+        como servicio Web Map Service (WMS) a través de un portal generado en HyperText Markup Language (HTML) y
+        estilizado con Bootstrap, además, es enriquecida con temas y funciones de la biblioteca OpenLayers desarrollada
+        en JavaScript.
+        <br><br>
+        Este portal es publicado por el Programa Universitario de Estudios de la Diversidad Cultural y la
+        Interculturalidad (PUIC) en colaboración con el Centro Integral de Planeación y Análisis Espacial México (CIPAES
+        Mx) por medio de Apache Tomcat.
+        En su elaboración se utilizaron los protocolos del Open Geospatial Consortium (OGC), así como herramientas y
+        códigos complementarios de libre acceso.
+        <br><br><br>
+        © Todos los derechos de elaboración le pertenecen a la Universidad Nacional Autónoma de México.
+        <br><br><br><br>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Termina modal 3-->
+<!--Terminan MODALES de navegación-->
+
+
+
+<!--Cuerpo del Geoportal-->
+
+<body>
+
+
+  <!--Caja de mapa-->
+  <div id="js-Mapa" class="Mapa1"></div>
+  <!--Termina caja de mapa-->
+
+  <!--Botón sobre mapa 1-->
+  <div class="BotonEDESPI">
+    <!--Lienzo desplegable 1-->
+    <div class="container">
+
+      <div class="container">
+
+        <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvas1">
+          <!--Símbolo de lista desplegable "List" -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+          </svg>
+          <!--Termina símbolo de lista desplegable "List" -->
+          2000
+        </a>
+
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas1">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" style="font-size: 17px">Estado del Desarrollo Económico y <br>Social de los
+              Pueblos Indígenas</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+          </div>
+
+          <br>
+          <!--Listas de acordeón EDESPI-->
+          <div class="accordion accordion-flush" id="accordionFlushExample">
+
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="flush-cabezaUno">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#flush-colapsoUno" aria-expanded="false" aria-controls="flush-colapsoUno">
+                  Chiapas
+                </button>
+              </h2>
+              <div id="flush-colapsoUno" class="accordion-collapse collapse" aria-labelledby="flush-cabezaUno"
+                data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+
+                  <!--LISTA DE ACORDEÓN INTERNA CHIAPAS-->
+
+                  <div class="accordion" id="accordionExample">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="headingDentro1">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                          data-bs-target="#collapseDentro1" aria-expanded="false" aria-controls="collapseDentro1">
+                          Población
+                        </button>
+                      </h2>
+                      <div id="collapseDentro1" class="accordion-collapse collapse" aria-labelledby="headingDentro1"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                          <!--CHECKBOX CONECTADO A LEYENDA-->
+                          <input type="checkbox" id="01anp-checkbox" name='ANP' style="margin: 10px"
+                            onclick="FunANP()">Población total por localidad<br> 
+                          <input type="checkbox" id="01anp-checkbox" name='ANP' style="margin: 10px"
+                            onclick="FunANP()">Población total por municipio<br>
+                          <input type="checkbox" id="01anp-checkbox" name='ANP' style="margin: 10px"
+                            onclick="FunANP()">Población indígena por localidad<br>
+                          <input type="checkbox" id="01anp-checkbox" name='ANP' style="margin: 10px"
+                            onclick="FunANP()">Población indígena por municipio<br>
+                          <input type="checkbox" id="01anp-checkbox" name='ANP' style="margin: 10px"
+                            onclick="FunANP()">Densidad indígena por localidad (%)<br>
+                          <input type="checkbox" id="01anp-checkbox" name='ANP' style="margin: 10px"
+                            onclick="FunANP()">Densidad indígena por municipio (%)<br>
+                          <input type="checkbox" id="01anp-checkbox" name='ANP' style="margin: 10px"
+                            onclick="FunANP()">Población bilingüe por localidad (%)<br>
+                          <input type="checkbox" id="01anp-checkbox" name='ANP' style="margin: 10px"
+                            onclick="FunANP()">Población bilingüe por municipio (%)<br>
+                          <!--CHECKBOX CONECTADO A LEYENDA-->
+                        </div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="headingDentro2">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                          data-bs-target="#collapseDentro2" aria-expanded="false" aria-controls="collapseDentro2">
+                          Desarrollo Social
+                        </button>
+                      </h2>
+                      <div id="collapseDentro2" class="accordion-collapse collapse" aria-labelledby="headingDentro2"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                          Índice de Desarrollo Social<br>
+                          <!--CHECKBOX CONECTADO A LEYENDA-->
+                          <input type="checkbox" id="01loc-checkbox" style="margin: 10px"
+                            onclick="FunLocalidades()">Localidades <br>
+                          <!--CHECKBOX CONECTADO A LEYENDA-->
+                        </div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="headingDentro3">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                          data-bs-target="#collapseDentro3" aria-expanded="false" aria-controls="collapseDentro3">
+                          Servicios básicos en la vivienda
+                        </button>
+                      </h2>
+                      <div id="collapseDentro3" class="accordion-collapse collapse" aria-labelledby="headingDentro3"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                          Viviendas con energía eléctrica<br>
+                          <!--CHECKBOX CONECTADO A LEYENDA-->
+                          <input type="checkbox" id="01vial-checkbox" style="margin: 10px"
+                            onclick="FunVialidades()">Vialidades <br>
+                          <!--CHECKBOX CONECTADO A LEYENDA-->
+                        </div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="headingDentro4">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                          data-bs-target="#collapseDentro4" aria-expanded="false" aria-controls="collapseDentro4">
+                          Lengua
+                        </button>
+                      </h2>
+                      <div id="collapseDentro4" class="accordion-collapse collapse" aria-labelledby="headingDentro4"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                          Lengua principal
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!---TERMINA LISTA ACORDEÓN INTERNA CHIAPAS-->
+
+                  <br>
+                </div>
+              </div>
+
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="flush-cabezaDos">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#flush-colapsoDos" aria-expanded="false" aria-controls="flush-colapsoDos">
+                  Michoacán
+                </button>
+              </h2>
+              <div id="flush-colapsoDos" class="accordion-collapse collapse" aria-labelledby="flush-cabezaDos"
+                data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+
+                  <!--LISTA DE ACORDEÓN INTERNA MICHOACÁN-->
+
+                  <div class="accordion" id="accordionExample">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="cabezaMich1">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                          data-bs-target="#colapsoMich1" aria-expanded="false" aria-controls="colapsoMich1">
+                          Población
+                        </button>
+                      </h2>
+                      <div id="colapsoMich1" class="accordion-collapse collapse" aria-labelledby="cabezaMich1"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                          Población total
+                        </div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="cabezaMich2">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                          data-bs-target="#colapsoMich2" aria-expanded="false" aria-controls="colapsoMich2">
+                          Desarrollo Social
+                        </button>
+                      </h2>
+                      <div id="colapsoMich2" class="accordion-collapse collapse" aria-labelledby="cabezaMich2"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                          Índice de Desarrollo Social
+                        </div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="cabezaMich3">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                          data-bs-target="#colapsoMich3" aria-expanded="false" aria-controls="colapsoMich3">
+                          Servicios básicos en la vivienda
+                        </button>
+                      </h2>
+                      <div id="colapsoMich3" class="accordion-collapse collapse" aria-labelledby="cabezaMich3"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                          Viviendas con energía eléctrica
+                        </div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="cabezaMich4">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                          data-bs-target="#collapseMich4" aria-expanded="false" aria-controls="collapseMich4">
+                          Lengua
+                        </button>
+                      </h2>
+                      <div id="collapseMich4" class="accordion-collapse collapse" aria-labelledby="cabezaMich4"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                          Lengua principal
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!---TERMINA LISTA ACORDEÓN INTERNA MICHOACÁN-->
+                </div>
+              </div>
+            </div>
+
+
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="flush-cabezaTres">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#flush-colapsoTres" aria-expanded="false" aria-controls="flush-colapsoTres">
+                  Guerrero
+                </button>
+              </h2>
+              <div id="flush-colapsoTres" class="accordion-collapse collapse" aria-labelledby="flush-cabezaTres"
+                data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+
+                  <!--LISTA DE ACORDEÓN INTERNA GUERRERO-->
+
+                  <div class="accordion" id="accordionExample">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="cabezaGuer1">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                          data-bs-target="#colapsoGuer1" aria-expanded="false" aria-controls="colapsoGuer1">
+                          Población
+                        </button>
+                      </h2>
+                      <div id="colapsoGuer1" class="accordion-collapse collapse" aria-labelledby="cabezaGuer1"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                          Población total
+                        </div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="cabezaGuer2">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                          data-bs-target="#colapsoGuer2" aria-expanded="false" aria-controls="colapsoGuer2">
+                          Desarrollo Social
+                        </button>
+                      </h2>
+                      <div id="colapsoGuer2" class="accordion-collapse collapse" aria-labelledby="cabezaGuer2"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                          Índice de Desarrollo Social
+                        </div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="cabezaGuer3">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                          data-bs-target="#colapsoGuer3" aria-expanded="false" aria-controls="colapsoGuer3">
+                          Servicios básicos en la vivienda
+                        </button>
+                      </h2>
+                      <div id="colapsoGuer3" class="accordion-collapse collapse" aria-labelledby="cabezaGuer3"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                          Viviendas con energía eléctrica
+                        </div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="cabezaGuer4">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                          data-bs-target="#colapsoGuer4" aria-expanded="false" aria-controls="colapsoGuer4">
+                          Lengua
+                        </button>
+                      </h2>
+                      <div id="colapsoGuer4" class="accordion-collapse collapse" aria-labelledby="cabezaGuer4"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                          Lengua principal
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!---TERMINA LISTA ACORDEÓN INTERNA GUERRERO-->
+
+              </div>
+            </div>
+
+
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="flush-cabezaCuatro">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#flush-colapsoCuatro" aria-expanded="false" aria-controls="flush-colapsoCuatro">
+                  Región Totonaca
+                </button>
+              </h2>
+              <div id="flush-colapsoCuatro" class="accordion-collapse collapse" aria-labelledby="flush-cabezaCuatro"
+                data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+
+                  <!--LISTA DE ACORDEÓN INTERNA TOTONACA-->
+
+                  <div class="accordion" id="accordionExample">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="cabezaTot1">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                          data-bs-target="#colapsoTot1" aria-expanded="false" aria-controls="colapsoTot1">
+                          Población
+                        </button>
+                      </h2>
+                      <div id="colapsoTot1" class="accordion-collapse collapse" aria-labelledby="cabezaTot1"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                          Población total
+                        </div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="cabezaTot2">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                          data-bs-target="#colapsoTot2" aria-expanded="false" aria-controls="colapsoTot2">
+                          Desarrollo Social
+                        </button>
+                      </h2>
+                      <div id="colapsoTot2" class="accordion-collapse collapse" aria-labelledby="cabezaTot2"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                          Índice de Desarrollo Social
+                        </div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="cabezaTot3">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                          data-bs-target="#colapsoTot3" aria-expanded="false" aria-controls="colapsoTot3">
+                          Servicios básicos en la vivienda
+                        </button>
+                      </h2>
+                      <div id="colapsoTot3" class="accordion-collapse collapse" aria-labelledby="cabezaTot3"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                          Viviendas con energía eléctrica
+                        </div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="cabezaTot4">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                          data-bs-target="#colapsoTot4" aria-expanded="false" aria-controls="colapsoTot4">
+                          Lengua
+                        </button>
+                      </h2>
+                      <div id="colapsoTot4" class="accordion-collapse collapse" aria-labelledby="cabezaTot4"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                          Lengua principal
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!---TERMINA LISTA ACORDEÓN INTERNA TOTONACA-->
+              </div>
+            </div>
+            <!--LISTA DE ACORDEÓN INTERNA CAPAS BASE-->
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="flush-cabezaCinco">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#flush-colapsoCinco" aria-expanded="false" aria-controls="flush-colapsoCinco">
+                  Capas base
+                </button>
+              </h2>
+              <div id="flush-colapsoCinco" class="accordion-collapse collapse" aria-labelledby="flush-cabezaCinco"
+                data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                  Uso de suelo y vegetación
+                </div>
+              </div>
+              <!--TERMINA LISTA DE ACORDEÓN INTERNA CAPAS BASE-->
+
+
+            </div>
+            <!--Terminan listas de acordeón EDESPI-->
+          </div>
+        </div>
+        <!--Termina prueba lienzo desplegable-->
+      </div>
+    </div>
+  </div>
+  <!--Termina botón sobre mapa 1-->
+
+
+</body>
+<!--Termina cuerpo del Geoportal-->
+
+
+<!--Pie de página-->
+<footer id="Piepagina">
+  <!--Logos y datos de contacto-->
+  <div class="Grupo1">
+    <div1 id="geoportal">
+      Subsistema de Información Geográfica del <br>Estado de Desarrollo Social de los<br> Pueblos Indígenas
+    </div1>
+    <div2 id="contacto">
+      <h3>Contáctanos</h3>
+      <p>
+        Programa Universitario de Estudios de la Diversidad Cultural y la Interculturalidad.
+        Av. Río de la Magdalena #100, Col. La Otra Banda, C.P. 01090, Alc. Álvaro Obregón, Ciudad de México.
+      </p>
+
+      <div class="Contacto">
+        <div>
+          <a class="Facebook" href="https://www.facebook.com/puicunam" target="_blank">
+            <img src="Imagenes/Fb.png" height="23" style="margin-top: 6px; padding: 1px;" class="Fb" title="Facebook">
+          </a>
+        </div>
+        <div>
+          <a class="Twiter" href="https://twitter.com/puic_unam?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor" target="_blank">
+            <img src="Imagenes/Tw.png" height="23" style="margin-top: 6px; padding: 1px;" class="Tw" title="Twiter">
+          </a>
+        </div>
+        <div>
+          <a class="Youtube" href="https://www.youtube.com/@PUIC_UNAM" target="_blank">
+            <img src="Imagenes/Yt.png" height="23" style="margin-top: 6px; padding: 1px;" class="Fb" title="Youtube">
+          </a>
+        </div>
+        <div>
+          <a class="Instagram" href="https://www.instagram.com/puic_unam/?hl=es-la" target="_blank">
+            <img src="Imagenes/Ig.png" height="23" style="margin-top: 6px; padding: 1px;" class="Ig" title="Instagram">
+          </a>
+        </div>
+      </div>
+
+    </div2>
+    <div3>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7903.817847084684!2d-99.19764423228888!3d19.33715176454892!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d2013bd9dd7e1b%3A0x790a1a1afd4dfd2f!2sPrograma%20Universitario%20de%20Estudios%20de%20la%20Diversidad%20Cultural!5e0!3m2!1ses!2smx!4v1669261532594!5m2!1ses!2smx"
+      id="Maps" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div3>
+
+  </div>
+  <!--Terminan logos y datos de contacto-->
+
+  <!--Derechos reservados-->
+  <div class="Grupo2">
+    © Todos los derechos reservados 2023. UNAM Programa Universitario de Estudios de la Diversidad Cultural y la
+    Interculturalidad. Centro Integral de Planeación y Análisis Espacial México
+  </div>
+  <!--Terminan derechos reservados-->
+</footer>
+
+
+
+
+
+<!--Botón colapsable para Leyenda-->
+<div class="Leyenda" style="position: absolute; right:20px; top:110px" title="Leyenda">
+  <p>
+    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
+      aria-expanded="false" aria-controls="collapseExample">
+      <!--Ícono layers-->
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-stack"
+        viewBox="0 0 16 16">
+        <path
+          d="m14.12 10.163 1.715.858c.22.11.22.424 0 .534L8.267 15.34a.598.598 0 0 1-.534 0L.165 11.555a.299.299 0 0 1 0-.534l1.716-.858 5.317 2.659c.505.252 1.1.252 1.604 0l5.317-2.66zM7.733.063a.598.598 0 0 1 .534 0l7.568 3.784a.3.3 0 0 1 0 .535L8.267 8.165a.598.598 0 0 1-.534 0L.165 4.382a.299.299 0 0 1 0-.535L7.733.063z" />
+        <path
+          d="m14.12 6.576 1.715.858c.22.11.22.424 0 .534l-7.568 3.784a.598.598 0 0 1-.534 0L.165 7.968a.299.299 0 0 1 0-.534l1.716-.858 5.317 2.659c.505.252 1.1.252 1.604 0l5.317-2.659z" />
+      </svg>
+      Leyenda
+    </button>
+  </p>
+  <div class="collapse" id="collapseExample">
+    <div class="card card-body" id="Leyenda">
+      <b>Leyenda</b><br>
+
+      <!--PRUEBA DE LEYENDA DESPLEGABLE CON CHECKBOX-->
+      <div id="01Localidades" style="margin: 10px; font-family:helvetica;display: none">
+        <p> Localidades </p>
+        <img
+          src="http://localhost:8080/geoserver/edomex/wms/?REQUEST=GetLegendGraphic&amp;VERSION=1.0.0&amp;FORMAT=image/png&amp;WIDTH=20&amp;HEIGHT=20&amp;LAYER=localidades">
+      </div>
+
+      <div id="01Vialidades" style="margin: 10px; font-family:helvetica;display: none">
+        <p> Vialidades
+        <p>
+          <img
+            src="http://localhost:8080/geoserver/edomex/wms/?REQUEST=GetLegendGraphic&amp;VERSION=1.0.0&amp;FORMAT=image/png&amp;WIDTH=20&amp;HEIGHT=20&amp;LAYER=vialidades">
+      </div>
+
+      <div id="01ANP" style="margin: 10px; font-family:helvetica;display: none">
+        <p> Áreas Naturales Protegidas
+        <p>
+          <img
+            src="http://localhost:8080/geoserver/edomex/wms/?REQUEST=GetLegendGraphic&amp;VERSION=1.0.0&amp;FORMAT=image/png&amp;WIDTH=20&amp;HEIGHT=20&amp;LAYER=ANP">
+      </div>
+      <!--TERMINA PRUEBA DE LEYENDA DESPLEGABLE CON CHECKBOX-->
+    </div>
+  </div>
+</div>
+<!--Termina botón colapsable para leyenda-->
+
+
+
+</html>

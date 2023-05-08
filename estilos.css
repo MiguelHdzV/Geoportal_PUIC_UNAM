@@ -1,0 +1,212 @@
+body::-webkit-scrollbar{
+  width: 12px;
+  background-color: #f1eaea9f;
+}
+body::-webkit-scrollbar-thumb {
+  width: 7px;
+  background: #c09438;;
+  border-radius: 15px;
+  border-left: 3px solid #f1eaea9f;
+  border-right: 3px solid #f1eaea9f;
+  border-top: 5px solid #f1eaea9f;
+  border-bottom: 5px solid #f1eaea9f;
+}
+body::-webkit-scrollbar-button {
+  background-color: #f1eaea9f;
+  height: 6px;
+}
+
+
+.CabeceraPUIC {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start ;
+    align-items: stretch;
+    padding: 0px;
+    height: auto;
+    background-image: url(imagenes/habla_cabecera.png);
+    border: .1px solid rgb(185, 184, 184);
+    box-shadow: 0 0 10px   #444343;
+    border: 1px solid rgba(0, 0, 0, 0);
+}
+
+@media (max-width: 600px){
+  .CabeceraPUIC{
+    justify-content: space-around;
+  }
+}
+
+.CabeceraPUIC div {
+    padding: 0px;
+    margin-left: 10px;
+    font-size: 18px;
+    color: #c09438;
+    font-family: var(--bs-font-sans-serif);
+    text-shadow: 0 3px 10px #252424;
+    line-height: 5px;   
+}
+
+
+@media (max-width: 600px){
+  .CabeceraPUIC div{
+    margin-bottom: 10px;
+  }
+}
+
+
+#cabecera1 {
+  font-family: 'Questrial', sans-serif;
+  order: 2;
+  flex-grow: 1;
+  margin-top: 25px;
+  margin-left: 15px;
+  flex-shrink: 0;
+  padding: 10px;
+}
+
+#t1{
+  color: #d4a53e;
+  font-size: 20px;
+}
+
+#t2{
+  color: rgba(207, 207, 207, 0.849);
+  font-size: 18px;
+}
+
+
+#js-Mapa {
+  position: relative;
+  width: 100%;
+  height: 570px;
+  padding: 5px;
+}
+
+
+
+
+
+.BotonEDESPI {
+  position: absolute; 
+  top:110px;
+  left: 15px;
+}
+
+
+
+#Leyenda {
+  overflow: scroll;
+  height: 200px;
+  width: 300px;
+  background-color: white;
+  font-family: 'Questrial', sans-serif;
+}
+
+#Leyenda::-webkit-scrollbar{
+  width: 7px;
+  height: 7px;
+}
+
+#Leyenda::-webkit-scrollbar-thumb {
+  background:#305454;
+  border-radius: 10px;
+}
+
+#Piepagina {
+  background-color: #305454;
+  color: rgb(207, 210, 212);
+}
+
+#Piepagina .Grupo1 {
+  display: grid;
+  grid-template-columns: 35% 40% 25%;
+  padding: 10px 0px;
+  font-family: 'Questrial', sans-serif;
+  color:  rgba(224, 224, 224, 0.918);
+}
+
+#geoportal{
+  font-size: 19px;
+  line-height: 24px;
+  text-align: left;
+}
+
+#contacto {
+  display: grid;
+  font-size: 14px;
+  align-items: end;
+}
+
+#contacto h3{
+  font-size: 25px;
+  text-align: end;
+  color:  rgba(229, 231, 233, 0.945);
+  font-size: 20px;
+}
+
+#Maps {
+  height: 170px;
+  width: auto;
+  border-radius: 5px;
+  box-shadow: 0 0 10px  #201f1f;
+  margin: 10px 20px;
+}
+
+#contacto p{
+  text-align: end;
+  line-height: 21px;
+  margin-bottom: 0  px;
+}
+
+#Piepagina .Grupo1 div1 {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  text-align: left;
+  margin-left: 25px;
+  color:  rgba(229, 231, 233, 0.945);
+  border-right: 1px solid #f1ebeb4b;
+}
+
+#Piepagina .Grupo1 div2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+  margin-right: 5px;
+  margin-left: 15px;
+}
+
+#Piepagina .Grupo1 div3 {
+  display: flex;
+  justify-content: center;
+}
+
+
+.Contacto {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  height: 60px;
+  text-align: center;
+}
+
+.Contacto div {
+  background-color: #f8f4f4c7;
+  width: 35px;
+  height: 35px;
+  border-radius: 12px;
+  margin: 15px;
+  align-items: center;
+}
+
+#Piepagina .Grupo2{
+  background-color: #192e2e;
+  font-family: 'Questrial', sans-serif;
+  text-align: center;
+  font-size: 10px;
+  padding: 5px;
+  color:  rgba(207, 210, 212, 0.829);
+}
+
