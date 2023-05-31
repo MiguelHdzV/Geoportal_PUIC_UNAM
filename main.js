@@ -13,10 +13,7 @@ function init (){
         target: 'js-Mapa'
     })
 
-    //Localización de coordenadas en consola
-    map1.on('click',function(e){
-        console.log(e.coordinate);
-    })
+
     
 
 
@@ -80,7 +77,7 @@ function init (){
     map1.addLayer(GrupoCapasBase);
 
     localidades_source=new ol.source.Vector({
-        url: 'http://52.36.216.101:8080/geoserver/ne/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=ne%3Alocalidades&maxFeatures=50&outputFormat=application%2Fjson',
+        url: 'http://52.36.216.101:8080/geoserver/ne/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=ne%3Alocalidades&maxFeatures=10000&outputFormat=application%2Fjson',
         format: new ol.format.GeoJSON() ,
         crossOrigin: 'anonymous'
       });
@@ -108,7 +105,7 @@ function init (){
     //Grupo de Capas Geoserver
     const GrupoCapasGeoserver = new ol.layer.Group({
         layers:[
-            ANP, Localidades, Vialidades
+             Localidades, Vialidades
         ]
     })
 
@@ -119,10 +116,7 @@ function init (){
 
 
     // Escuchador de eventos para los checkbox de Geoserver
-    var anpCheckbox = document.getElementById('01anp-checkbox');
-        anpCheckbox.addEventListener('change', function() {
-    ANP.setVisible(this.checked);
-    })
+
     var locCheckbox = document.getElementById('01loc-checkbox');
         locCheckbox.addEventListener('change', function() {
     Localidades.setVisible(this.checked);
@@ -133,21 +127,32 @@ function init (){
     })
 
 
+//Activar Leyenda en contenedor mediante checkbox
+var select = new ol.interaction.Select({
+    hitTolerance: 5,
+    multi: true,
+    condition: ol.events.condition.singleClick,
+    
+  });
+  map1.addInteraction(select);
+
+  // Select control
+  var popup = new ol.Overlay.PopupFeature({
+    popupClass: 'default anim',
+    select: select,
+    canFix: true,
+    keepSelection: false,
+    
+  })
+
+  map1.addOverlay (popup)
 
 };
 
 
 
-//Activar Leyenda en contenedor mediante checkbox
 
-function FunANP() {
-    var x = document.getElementById("01ANP");
-    if (x.style.display === "none") {
-    x.style.display = "block";
-    } else {
-    x.style.display = "none";
-    }
-}
+
 
 function FunLocalidades() {
     var x = document.getElementById("01Localidades");
