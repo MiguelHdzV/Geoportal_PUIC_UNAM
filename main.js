@@ -79,29 +79,19 @@ function init (){
 
     map1.addLayer(GrupoCapasBase);
 
-
+    localidades_source=new ol.source.Vector({
+        url: 'http://52.36.216.101:8080/geoserver/ne/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=ne%3Alocalidades&maxFeatures=50&outputFormat=application%2Fjson',
+        format: new ol.format.GeoJSON() ,
+        crossOrigin: 'anonymous'
+      });
 
     //Capas Geoserver
-    var ANP = new ol.layer.Tile({
-        source: new ol.source.TileWMS({
-            url: 'http://localhost:8080/geoserver/edomex/wms',
-            params: {'LAYERS': 'edomex:ANP', 'TILED': true},
-            transparent: true,
-            serverType: 'geoserver'
-            }),
-        visible: false,
-        title: 'ANP',
-    })
 
-    var Localidades = new ol.layer.Tile({
-        source: new ol.source.TileWMS({
-            url: 'http://localhost:8080/geoserver/edomex/wms',
-            params: {'LAYERS': 'edomex:localidades', 'TILED': true},
-            transparent: false,
-            serverType: 'geoserver'
-            }),
-        visible: false,
-        title: 'Localidades'      
+    var Localidades = new ol.layer.Vector({
+        name: 'Localidades',
+        source: localidades_source,
+
+      
     })
 
     var Vialidades = new ol.layer.Tile({
