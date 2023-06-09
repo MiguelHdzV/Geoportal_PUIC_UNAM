@@ -1,6 +1,7 @@
 window.onload = init;
 
 function init (){
+    
     //Vista General del Mapa
     const map1 = new ol.Map ({
         view: new ol.View ({
@@ -76,20 +77,18 @@ function init (){
 
     map1.addLayer(GrupoCapasBase);
 
-    localidades_source=new ol.source.Vector({
-        url: 'http://52.36.216.101:8080/geoserver/ne/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=ne%3Alocalidades&maxFeatures=10000&outputFormat=application%2Fjson',
-        format: new ol.format.GeoJSON() ,
-        crossOrigin: 'anonymous'
-      });
 
-    //Capas Geoserver
-
-    var Localidades = new ol.layer.Vector({
-        name: 'Localidades',
+    var localidades_source = new ol.source.TileWMS({
+        url: 'http://52.36.216.101:8080/geoserver/ne/wms',
+        params: {'LAYERS': 'ne:localidades', 'TILED': true},
+        serverType: 'geoserver'
+        })
+    var Localidades = new ol.layer.Tile({
         source: localidades_source,
-
-      
+        title: 'Localidades' ,
+        visible: false,       
     })
+
 
     var Vialidades = new ol.layer.Tile({
         source: new ol.source.TileWMS({
@@ -112,11 +111,18 @@ function init (){
     //Agregar al mapa capas de Geoserver
     map1.addLayer(GrupoCapasGeoserver);
 
-
+    var popup = new ol.Overlay.Popup();
+    map1.addOverlay(popup);
 
 
     // Escuchador de eventos para los checkbox de Geoserver
 
+    
+    // Escuchador de eventos para los checkbox de Geoserver
+    var anpCheckbox = document.getElementById('01anp-checkbox');
+        anpCheckbox.addEventListener('change', function() {
+    ANP.setVisible(this.checked);
+    })
     var locCheckbox = document.getElementById('01loc-checkbox');
         locCheckbox.addEventListener('change', function() {
     Localidades.setVisible(this.checked);
@@ -127,30 +133,52 @@ function init (){
     })
 
 
-//Activar Leyenda en contenedor mediante checkbox
-var select = new ol.interaction.Select({
-    hitTolerance: 5,
-    multi: true,
-    condition: ol.events.condition.singleClick,
+
+
+//Agregar popup
+// map1.on('singleclick', function(evt) {
+
+
+//     popup.show(evt.coordinate,"lol");    
+ 
+//  });
+
+ map1.on('singleclick', function (evt) {
+    popup.hide()
+    var feature = Localidades.getSource().getFeatureInfoUrl(
+      evt['coordinate'],
+      map1.getView().getResolution(),
+      'EPSG:3857',
+      {'INFO_FORMAT': 'application/json'}
+    );
+    if (feature) {
+        fetch(feature)
+    .then(response => response.json()) // Parse the response as JSON
+    .then(data => {
+        //console.log(data.features[0].properties); // Handle the data
+        info=geojsonToTable(data.features[0].properties);
+        popup.show(evt.coordinate,info);
+    })
     
-  });
-  map1.addInteraction(select);
+        
+      //info= geojsonToTable(feature);
+      //popup.show(evt.coordinate,info);   
+    }})
 
-  // Select control
-  var popup = new ol.Overlay.PopupFeature({
-    popupClass: 'default anim',
-    select: select,
-    canFix: true,
-    keepSelection: false,
+
     
-  })
-
-  map1.addOverlay (popup)
-
 };
 
 
 
+function FunANP() {
+    var x = document.getElementById("01ANP");
+    if (x.style.display === "none") {
+    x.style.display = "block";
+    } else {
+    x.style.display = "none";
+    }
+}
 
 
 
@@ -175,3 +203,17 @@ function FunVialidades() {
 
 
 
+function geojsonToTable(geojsonData) {
+    var html = '<table border="1">';
+    html += '<tr><th>Propiedad</th><th>Valor</th></tr>';
+    
+    for (var key in geojsonData) {
+        var feature = key;
+        var name = geojsonData[key];
+        
+        html += '<tr><td>' + feature + '</td><td>' + name  + '</td></tr>';
+    }
+    
+    html += '</table>';
+    return html;
+}

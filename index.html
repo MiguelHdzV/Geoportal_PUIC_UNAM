@@ -288,6 +288,9 @@
   <!--Caja de mapa-->
   <div id="js-Mapa" class="Mapa1"></div>
   <!--Termina caja de mapa-->
+  <div id="popup" class="ol-popup">
+    <div id="popup-content"></div>
+  </div>
 
   <!--Botón sobre mapa 1-->
   <div class="BotonEDESPI">
@@ -769,7 +772,7 @@
       <div id="01Localidades" style="margin: 10px; font-family:helvetica;display: none">
         <p> Localidades </p>
         <img
-          src="http://localhost:8080/geoserver/edomex/wms/?REQUEST=GetLegendGraphic&amp;VERSION=1.0.0&amp;FORMAT=image/png&amp;WIDTH=20&amp;HEIGHT=20&amp;LAYER=localidades">
+          src="http://52.36.216.101:8080/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=ne:localidades">
       </div>
 
       <div id="01Vialidades" style="margin: 10px; font-family:helvetica;display: none">
